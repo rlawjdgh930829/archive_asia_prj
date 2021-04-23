@@ -3,7 +3,7 @@ package com.spring.archive;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DBtest {
 	
