@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<select id="getMemberMaxNo" resultType="Integer">
+		select max(memberNo) from member
+	</select>
+	
+	<insert id="insertMember" parameterType="member">
+		insert into member values (#{memberNo}, #{memberId}, #{memberPwd}, #{memberEmail})
+	</insert>
+	
+	<select id="selectMember" parameterType="member" resultType="member">
+		select * from member
+		where memberId = #{memberId}
+		and memberPwd = #{memberPwd}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member
+		where memberId = #{userId}
+	</select>
+	
+	<select id="emailCheck" parameterType="String" resultType="Integer">
+		select count(*) from member
+		where memberEmail = #{emailId}
+	</select>
+	
+	<select id="userCheck" parameterType="String" resultType="member">
+		select * from member
+		where memberId = #{userId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="getMaxBoardNo" resultType="Integer">
+		select max(boardNo) from board
+	</select>
+	<insert id="insertBoard" parameterType="board">
+		insert into board values(#{boardNo}, #{boardTitle}, #{boardContent}, #{boardDate}, #{boardViewCount}, #{categoryNo}, #{memberNo})
+	</insert>
+	<select id="getAllBoard" resultType="board">
+		select b.boardNo, c.categoryName, m.memberId, b.boardTitle, b.boardDate,  b.boardViewCount
+		from board b, category c , member m
+		where b.categoryNo = c.categoryNo
+		and b.memberNo = m.memberNo
+		order by b.boardNo desc
+	</select>
+	<select id="selectBoard" parameterType="Integer" resultType="board">
+		select b.boardNo, c.categoryName, m.memberId, b.boardTitle, b.boardContent, b.boardDate,  b.boardViewCount, m.memberNo
+		from board b, category c , member m
+		where b.categoryNo = c.categoryNo
+		and b.memberNo = m.memberNo
+		and b.boardNo = #{no}
+	</select>
+	<update id="boardViewCountUp" parameterType="Integer">
+		update board
+		set boardViewCount = boardViewCount+1
+		where boardNo = #{no}
+	</update>
+	<delete id="boardDelete" parameterType="Integer">
+		delete from board
+		where boardNo = #{no}
+	</delete>
+	<update id="boardUpdate" parameterType="board">
+		update board set 
+			boardTitle = #{boardTitle},
+			categoryNo = #{categoryNo},
+			boardContent = #{boardContent}
+		where boardNo = #{boardNo}
+	</update>
+	<select id="countBoard" resultType="Integer" parameterType="String">
+		select count(*) from board
+		where boardTitle like concat('%',#{search},'%')
+	</select>
+	<select id="pagingBoard" resultType="board" parameterType="paging">
+		select b.boardNo, c.categoryName, m.memberId, b.boardTitle, b.boardDate,  b.boardViewCount
+		from (
+			select * from board
+		) b, category c , member m
+		where b.boardTitle like concat('%',#{search},'%')
+		and b.categoryNo = c.categoryNo
+		and b.memberNo = m.memberNo
+		order by b.boardNo desc
+		limit #{queryStart}, #{perPage}
+	</select>
+	<select id="countCategoryBoard" resultType="Integer" parameterType="HashMap">
+		select count(*) from board
+		where categoryNo = #{categoryNo}
+		and boardTitle like concat('%',#{search},'%')
+	</select>
+	<select id="pagingCategoryBoard" resultType="board" parameterType="paging">
+		select b.boardNo, c.categoryName, m.memberId, b.boardTitle, b.boardDate,  b.boardViewCount
+		from (
+			select * from board
+			where categoryNo = #{categoryNo}
+		) b, category c , member m
+		where b.boardTitle like concat('%',#{search},'%')
+		and b.categoryNo = c.categoryNo
+		and b.memberNo = m.memberNo
+		order by b.boardNo desc
+		limit #{queryStart}, #{perPage}
+	</select>
+</mapper>
