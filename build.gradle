@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.4.5'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services:2.4.5'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
+    implementation 'javax.servlet:jstl:1.2'
+    implementation 'jstl:jstl:1.2'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.4.5'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.4.5'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.23'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.5'
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+}
+
+group = 'com.spring'
+version = '0.0.1-SNAPSHOT'
+description = 'demo'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+test {
+	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
