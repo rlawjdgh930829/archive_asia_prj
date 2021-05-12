@@ -21,6 +21,9 @@
 			</c:if>
 			<c:if test="${ USER != null }">
 				<li class="nav-item">
+					<a class="nav-link" href="/">${ USER.authorityName }</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="writing">글쓰기</a>
 				</li>
 				<li class="nav-item">

@@ -8,13 +8,15 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="member">
-		insert into member values (#{memberNo}, #{memberId}, #{memberPwd}, #{memberEmail})
+		insert into member values (#{memberNo}, #{memberId}, #{memberPwd}, #{memberEmail}, 101)
 	</insert>
 	
 	<select id="selectMember" parameterType="member" resultType="member">
-		select * from member
-		where memberId = #{memberId}
-		and memberPwd = #{memberPwd}
+		select m.memberNo, m.memberId, m.memberEmail, m.authorityNo, a.authorityName
+		from member m, authority a
+		where m.memberId = #{memberId}
+		and m.memberPwd = #{memberPwd}
+		and m.authorityNo = a.authorityNo
 	</select>
 	
 	<select id="idCheck" parameterType="String" resultType="Integer">
