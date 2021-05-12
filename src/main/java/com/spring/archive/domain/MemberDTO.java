@@ -11,6 +11,8 @@ public class MemberDTO {
 	private String memberPwd;
 	@NotEmpty(message = "이메일을 입력해주세요.")
 	private String memberEmail;
+	private int authorityNo;
+	private String authorityName;
 	
 	public int getMemberNo() {
 		return memberNo;
@@ -35,6 +37,18 @@ public class MemberDTO {
 	}
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
+	}
+	public int getAuthorityNo() {
+		return authorityNo;
+	}
+	public void setAuthorityNo(int authorityNo) {
+		this.authorityNo = authorityNo;
+	}
+	public String getAuthorityName() {
+		return authorityName;
+	}
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
 	}
 
 }

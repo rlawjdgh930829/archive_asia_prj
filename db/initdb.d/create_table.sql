@@ -1,8 +1,19 @@
+create table authority (
+    authorityNo int(20) primary key,
+    authorityName varchar(20) not null
+);
+
+insert into authority values (001, 'Engineer');
+insert into authority values (101, 'Company');
+insert into authority values (999, 'Admin');
+
 create table member (
     memberNo int(20) primary key,
     memberId varchar(20) not null,
     memberPwd varchar(20) not null,
-    memberEmail varchar(40) not null
+    memberEmail varchar(40) not null,
+    authorityNo int(20) not null,
+    foreign key(authorityNo) references authority(authorityNo) on delete cascade
 );
 
 create table category (
@@ -22,7 +33,7 @@ create table board (
     boardViewCount int(20) not null,
     categoryNo int(20) not null,
     memberNo int(20) not null,
-    foreign key(categoryNo) references category(categoryNo),
+    foreign key(categoryNo) references category(categoryNo) on delete cascade,
     foreign key(memberNo) references member(memberNo) on delete cascade
 );
 
